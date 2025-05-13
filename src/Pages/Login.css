@@ -1,0 +1,68 @@
+.login-container {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 360px;
+  text-align: center;
+  margin: 50px auto;
+}
+
+.login-container h1 {
+  color: #333333;
+  margin-bottom: 24px;
+  font-size: 28px;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+label {
+  font-weight: 500;
+  color: #555;
+  text-align: left;
+}
+
+input[type='text'],
+input[type='password'] {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  transition: 0.3s ease;
+}
+
+input[type='text']:focus,
+input[type='password']:focus {
+  border-color: #4facfe;
+  outline: none;
+}
+
+.login-btn {
+  background: #4facfe;
+  color: white;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.login-btn:hover {
+  background: #357bd8;
+}
+
+.status-message {
+  margin-top: 16px;
+  font-size: 14px;
+  color: #e63946; /* Red for error */
+}
