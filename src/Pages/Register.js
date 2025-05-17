@@ -1,4 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import {
+  FaUser,
+  FaEnvelope,
+  FaPhone,
+  FaMapMarkerAlt,
+  FaLock,
+  FaBuilding,
+} from 'react-icons/fa';
 import './Register.css';
 
 const Register = () => {
@@ -39,7 +47,6 @@ const Register = () => {
       confirmPassword,
     } = formData;
 
-    // Check if all required fields are filled
     if (
       !firstname ||
       !lastname ||
@@ -55,9 +62,13 @@ const Register = () => {
       return;
     }
 
-    // Check if passwords match
     if (password !== confirmPassword) {
-      setStatusMessage('Password and Confirm Password do not match.');
+      setStatusMessage('Passwords do not match.');
+      return;
+    }
+
+    if (password.length < 8) {
+      setStatusMessage('Password must be at least 8 characters long.');
       return;
     }
 
@@ -68,14 +79,13 @@ const Register = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData), // Send plain password
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
         setStatusMessage(
-          'Registration successful! Please check your email for verification.'
+          '✅ Registration successful! Please check your email for verification.'
         );
-        // Clear form data after successful registration
         setFormData({
           firstname: '',
           lastname: '',
@@ -89,10 +99,10 @@ const Register = () => {
         });
       } else {
         const errorData = await response.json();
-        setStatusMessage(`Registration failed: ${errorData.message}`);
+        setStatusMessage(`❌ Registration failed: ${errorData.message}`);
       }
     } catch (error) {
-      setStatusMessage(`An error occurred: ${error.message}`);
+      setStatusMessage(`❌ An error occurred: ${error.message}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -100,105 +110,145 @@ const Register = () => {
 
   return (
     <div className="register-container">
-      <h1>Register Here</h1>
-      <form className="register-form" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="firstname">Firstname*</label>
-          <input
-            type="text"
-            id="firstname"
-            name="firstname"
-            value={formData.firstname}
-            onChange={handleChange}
-            required
-          />
+      <div className="register-card">
+        <div className="register-header">
+          <h1>Create Account</h1>
+          <p>Join our e-commerce community today</p>
+        </div>
 
-          <label htmlFor="lastname">Lastname*</label>
-          <input
-            type="text"
-            id="lastname"
-            name="lastname"
-            value={formData.lastname}
-            onChange={handleChange}
-            required
-          />
+        <form className="register-form" onSubmit={handleSubmit}>
+          <div className="form-row">
+            <div className="input-group">
+              <FaUser className="input-icon" />
+              <input
+                type="text"
+                name="firstname"
+                placeholder="First Name"
+                value={formData.firstname}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="input-group">
+              <FaUser className="input-icon" />
+              <input
+                type="text"
+                name="lastname"
+                placeholder="Last Name"
+                value={formData.lastname}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
 
-          <label htmlFor="email">Email*</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
+          <div className="input-group">
+            <FaEnvelope className="input-icon" />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email Address"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-          <label htmlFor="contact">Contact*</label>
-          <input
-            type="text"
-            id="contact"
-            name="contact"
-            value={formData.contact}
-            onChange={handleChange}
-            required
-          />
+          <div className="input-group">
+            <FaPhone className="input-icon" />
+            <input
+              type="tel"
+              name="contact"
+              placeholder="Contact Number"
+              value={formData.contact}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-          <label htmlFor="address">Address*</label>
-          <input
-            type="text"
-            id="address"
-            name="address"
-            value={formData.address}
-            onChange={handleChange}
-            required
-          />
+          <div className="input-group">
+            <FaMapMarkerAlt className="input-icon" />
+            <input
+              type="text"
+              name="address"
+              placeholder="Address"
+              value={formData.address}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-          <label htmlFor="state">State*</label>
-          <input
-            type="text"
-            id="state"
-            name="state"
-            value={formData.state}
-            onChange={handleChange}
-            required
-          />
+          <div className="form-row">
+            <div className="input-group">
+              <FaBuilding className="input-icon" />
+              <input
+                type="text"
+                name="state"
+                placeholder="State"
+                value={formData.state}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="input-group">
+              <FaMapMarkerAlt className="input-icon" />
+              <input
+                type="text"
+                name="pincode"
+                placeholder="Pincode"
+                value={formData.pincode}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
 
-          <label htmlFor="pincode">Pincode*</label>
-          <input
-            type="text"
-            id="pincode"
-            name="pincode"
-            value={formData.pincode}
-            onChange={handleChange}
-            required
-          />
+          <div className="input-group">
+            <FaLock className="input-icon" />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-          <label htmlFor="password">Password*</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-
-          <label htmlFor="confirmPassword">Confirm Password*</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            required
-          />
+          <div className="input-group">
+            <FaLock className="input-icon" />
+            <input
+              type="password"
+              name="confirmPassword"
+              placeholder="Confirm Password"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
           <button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? 'Registering...' : 'Register Here'}
+            {isSubmitting ? 'Creating Account...' : 'Create Account'}
           </button>
-        </div>
-        {statusMessage && <p className="status-message">{statusMessage}</p>}
-      </form>
+
+          {statusMessage && (
+            <p
+              className={`status-message ${
+                statusMessage.includes('✅') ? 'success' : 'error'
+              }`}
+            >
+              {statusMessage}
+            </p>
+          )}
+
+          <div className="login-prompt">
+            Already have an account?{' '}
+            <a href="/login" className="login-link">
+              Sign in
+            </a>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
