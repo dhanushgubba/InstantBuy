@@ -113,6 +113,13 @@ const Navbar = () => {
             >
               Sign Up
             </Link>
+            <Link
+              to="/adminlogin"
+              className="login-btn"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Admin Login
+            </Link>
           </div>
         </div>
       </div>
